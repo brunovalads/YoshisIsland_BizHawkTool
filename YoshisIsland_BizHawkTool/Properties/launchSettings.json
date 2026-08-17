@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "YoshisIsland_BizHawkTool": {
+      "commandName": "Project",
+      "workingDirectory": "E:\\C#\\YoshisIsland_BizHawkTool\\YoshisIsland_BizHawkTool"
+    }
+  }
+}

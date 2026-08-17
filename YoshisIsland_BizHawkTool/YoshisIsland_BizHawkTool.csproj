@@ -1,10 +1,134 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>disable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-	<CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-  </PropertyGroup>
+	<!-- Main project config -->
+	<PropertyGroup>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+		<OutputType>Library</OutputType>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<Configurations>Debug 2.10;Release 2.10;Debug 2.11;Release 2.11;Debug 2.11.1;Release 2.11.1;</Configurations>
+		<UseWindowsForms>true</UseWindowsForms>
+	</PropertyGroup>
+	
+	<!-- Define BizHawk and .NET versions based on project configuration -->
+	<Choose>
+		<When Condition="$(Configuration.EndsWith('2.10'))">
+			<PropertyGroup>
+				<BizHawkVersion>2.10</BizHawkVersion>
+				<TargetFramework>net48</TargetFramework>
+			</PropertyGroup>
+		</When>
+		<When Condition="$(Configuration.EndsWith('2.11'))">
+			<PropertyGroup>
+				<BizHawkVersion>2.11</BizHawkVersion>
+				<TargetFramework>net8.0-windows</TargetFramework>
+			</PropertyGroup>
+		</When>
+		<When Condition="$(Configuration.EndsWith('2.11.1'))">
+			<PropertyGroup>
+				<BizHawkVersion>2.11.1</BizHawkVersion>
+				<TargetFramework>net8.0-windows</TargetFramework>
+			</PropertyGroup>
+		</When>
+		<Otherwise>
+			<PropertyGroup>
+				<BizHawkVersion>2.10</BizHawkVersion>
+				<TargetFramework>net48</TargetFramework>
+			</PropertyGroup>
+		</Otherwise>
+	</Choose>
+	
+	<!-- Debug configs -->
+	<PropertyGroup Condition="$(Configuration.Contains('Debug'))">
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>full</DebugType>
+		<Optimize>false</Optimize>
+		<OutputPath>bin\Debug\$(BizHawkVersion)</OutputPath>
+		<DefineConstants>DEBUG;TRACE;BIZHAWK_$(BizHawkVersion.Replace('.', '_'))</DefineConstants>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
 
+	<!-- Release configs -->
+	<PropertyGroup Condition="$(Configuration.Contains('Release'))">
+		<DebugType>pdbonly</DebugType>
+		<Optimize>true</Optimize>
+		<OutputPath>bin\Release\$(BizHawkVersion)</OutputPath>
+		<DefineConstants>TRACE;BIZHAWK_$(BizHawkVersion.Replace('.', '_'))</DefineConstants>
+		<ErrorReport>prompt</ErrorReport>
+		<WarningLevel>4</WarningLevel>
+	</PropertyGroup>
+	
+	<!-- BizHawk references -->
+	<PropertyGroup>
+		<BizHawkPath>$(ProjectDir)../BizHawk/BizHawk $(BizHawkVersion)</BizHawkPath>
+	</PropertyGroup>
+	<ItemGroup>
+		<Reference Include="BizHawk.Bizware.Graphics" HintPath="$(BizHawkPath)/dll/BizHawk.Bizware.Graphics.dll">
+		  <Private></Private>
+		</Reference>
+		<Reference Include="BizHawk.Client.Common" HintPath="$(BizHawkPath)/dll/BizHawk.Client.Common.dll">
+		  <Private></Private>
+		</Reference>
+		<Reference Include="BizHawk.Client.EmuHawk" HintPath="$(BizHawkPath)/EmuHawk.exe">
+		  <Private></Private>
+		</Reference>
+		<Reference Include="BizHawk.Common" HintPath="$(BizHawkPath)/dll/BizHawk.Common.dll">
+		  <Private></Private>
+		</Reference>
+		<Reference Include="BizHawk.Emulation.Common" HintPath="$(BizHawkPath)/dll/BizHawk.Emulation.Common.dll">
+		  <Private></Private>
+		</Reference>
+		<Reference Include="BizHawk.WinForms.Controls" HintPath="$(BizHawkPath)/dll/BizHawk.WinForms.Controls.dll">
+		  <Private></Private>
+		</Reference>
+	</ItemGroup>
+	
+	<!-- Resources -->
+	<ItemGroup>
+		<Compile Update="Properties\Resources.Designer.cs">
+		  <DesignTime>True</DesignTime>
+		  <AutoGen>True</AutoGen>
+		  <DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Resources\Images\yoshi_icon_16px.ico" />
+		<EmbeddedResource Include="Resources\Images\yoshi_icon_16px.png" />
+		<EmbeddedResource Include="Resources\Images\yoshi_icon_bg_24px.png" />
+		<EmbeddedResource Include="Resources\Images\yoshi_icon_bg_32px.png" />
+	</ItemGroup>
+
+	<!-- Settings -->
+	<ItemGroup>
+	  <Compile Update="Properties\Settings.Designer.cs">
+	    <DesignTimeSharedInput>True</DesignTimeSharedInput>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Settings.settings</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+	<ItemGroup>
+	  <None Update="Properties\Settings.settings">
+	    <Generator>SettingsSingleFileGenerator</Generator>
+	    <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+	  </None>
+	</ItemGroup>
+	
+	<!-- BizHawk execution with external tool when in Debug -->
+	<PropertyGroup Condition="$(Configuration.Contains('Debug'))">
+		<StartAction>Program</StartAction>
+		<StartProgram>$(BizHawkPath)/EmuHawk.exe</StartProgram>
+	</PropertyGroup>
+	
+	<!-- PostBuild event -->
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="echo BizHawkPath: $(BizHawkPath)" />
+		<Copy SourceFiles="$(OutputPath)$(MSBuildProjectName).dll" DestinationFolder="$(BizHawkPath)/ExternalTools" />
+	</Target>
 </Project>
