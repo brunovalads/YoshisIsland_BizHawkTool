@@ -5,9 +5,11 @@
 		<ImplicitUsings>disable</ImplicitUsings>
 		<CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
 		<OutputType>Library</OutputType>
+		<LangVersion>12.0</LangVersion>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<Configurations>Debug 2.10;Release 2.10;Debug 2.11;Release 2.11;Debug 2.11.1;Release 2.11.1;</Configurations>
 		<UseWindowsForms>true</UseWindowsForms>
+		<UseWPF>true</UseWPF>
 	</PropertyGroup>
 	
 	<!-- Define BizHawk and .NET versions based on project configuration -->

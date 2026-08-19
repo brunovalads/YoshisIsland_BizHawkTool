@@ -17,6 +17,8 @@ namespace YoshisIsland_BizHawkTool
 
         // PROPERTIES
         protected override string WindowTitleStatic => WINDOW_TITLE;
+        public ApiContainer? _maybeAPIContainer { get; set; }
+        private ApiContainer APIs => _maybeAPIContainer!;
 
 
         // CONSTRUCTOR
@@ -25,9 +27,18 @@ namespace YoshisIsland_BizHawkTool
             ClientSize = new Size(480, 320);
             SuspendLayout();
             Controls.Add(new Label { AutoSize = true, Text = "Yoshi!!" });
+            Button wpfTestButton = new Button { AutoSize = true, Text = "Test WPF", Width = 200 };
+            wpfTestButton.Click += WpfTestButton_Click;
+            Controls.Add(wpfTestButton);
             ResumeLayout(performLayout: false);
             PerformLayout();
             this.Icon = Properties.Resources.yoshi_icon_16px;
+        }
+
+        private void WpfTestButton_Click(object sender, EventArgs e)
+        {
+            TestWPFWindow testWPFWindow = new TestWPFWindow(APIs);
+            testWPFWindow.Show();
         }
 
         // METHODS
