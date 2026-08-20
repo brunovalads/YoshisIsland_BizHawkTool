@@ -80,6 +80,17 @@ namespace YoshisIsland_BizHawkTool
             base.Restart();
         }
 
+        protected override void UpdateAfter()
+        {
+            APIs.Gui.ClearGraphics(DisplaySurfaceID.EmuCore);
+            APIs.Gui.ClearGraphics(DisplaySurfaceID.Client);
+            if (ToolOptions.Instance.DisplayPlayerInfo)
+            {
+                APIs.Gui.DrawBox(0, 0, 100, 100, Color.FromArgb(0x40, 0xFF, 0x00, 0x00), Color.FromArgb(0x40, 0x00, 0xFF, 0x00), DisplaySurfaceID.EmuCore);
+                APIs.Gui.DrawBox(0, 0, 100, 100, Color.FromArgb(0x40, 0x00, 0x00, 0xFF), Color.Orange, DisplaySurfaceID.Client);
+            }
+        }
+
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainToolForm));
@@ -246,6 +257,7 @@ namespace YoshisIsland_BizHawkTool
             this.playerInfoCheckBox.TabIndex = 1;
             this.playerInfoCheckBox.Text = "Info";
             this.playerInfoCheckBox.UseVisualStyleBackColor = true;
+            this.playerInfoCheckBox.DataBindings.Add("Checked", ToolOptions.Instance, "DisplayPlayerInfo", true, DataSourceUpdateMode.OnPropertyChanged);
             // 
             // levelGroupBox
             // 
