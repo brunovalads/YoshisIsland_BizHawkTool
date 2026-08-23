@@ -2,17 +2,19 @@
 using BizHawk.Client.EmuHawk;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace YoshisIsland_BizHawkTool
 {
-    [ExternalTool("Yoshi's Island Utilities", Description = "Yoshi's Island (SNES) Utilities for BizHawk 2.10+")] // this appears in the Tools > External Tools submenu in EmuHawk
+    [ExternalTool(TOOL_PUBLIC_NAME, Description = TOOL_DESCRIPTION)]
     [ExternalToolEmbeddedIcon("YoshisIsland_BizHawkTool.Resources.Images.yoshi_icon_16px.png")]
     public class MainToolForm : ToolFormBase, IExternalToolForm
     {
         // CONSTANTS ==========
-        public const string TOOL_NAME = "YoshisIsland_BizHawkTool";
+        public const string TOOL_INTERNAL_NAME = "YoshisIsland_BizHawkTool";
+        public const string TOOL_PUBLIC_NAME = "Yoshi's Island Utilities";
+        public const string TOOL_DESCRIPTION = "Yoshi's Island (SNES) Utilities for BizHawk 2.10+";
         public const string WINDOW_TITLE = "Yoshi's Island Utilities Tool";
 
 
