@@ -101,12 +101,16 @@ namespace YoshisIsland_BizHawkTool
 
         protected override void UpdateAfter()
         {
-            APIs.Gui.ClearGraphics(DisplaySurfaceID.EmuCore);
-            APIs.Gui.ClearGraphics(DisplaySurfaceID.Client);
-
-#if DEBUG
-            _toolOptions.Debug(APIs.Gui);
-#endif
+            try
+            {
+                GuiManager.DrawEverything();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"\nException: {ex.Message}");
+                Debug.WriteLine($"InnerException: {ex.InnerException.Message}");
+                Debug.WriteLine($"Stack:\n{ex.StackTrace}");
+            }
         }
 
         protected override void OnLoad(EventArgs e)
@@ -114,6 +118,7 @@ namespace YoshisIsland_BizHawkTool
             base.OnLoad(e);
 
             ClientManager.Init(APIs.EmuClient);
+            GuiManager.Init(APIs.Gui);
 
             SetEventHandlers();
         }
