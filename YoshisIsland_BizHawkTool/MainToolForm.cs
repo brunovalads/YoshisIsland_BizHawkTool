@@ -3,7 +3,6 @@ using BizHawk.Client.EmuHawk;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace YoshisIsland_BizHawkTool
@@ -91,34 +90,12 @@ namespace YoshisIsland_BizHawkTool
 
         }
 
-        //private void MainToolForm_DpiChanged(object sender, DpiChangedEventArgs e)
-        //{
-        //    Debug.WriteLine($"DpiChanged: {e.DeviceDpiOld} -> {e.DeviceDpiNew} (rect: {e.SuggestedRectangle})");
-        //}
-
-        protected override void OnDpiChanged(DpiChangedEventArgs e)
-        {
-            base.OnDpiChanged(e);
-
-            Debug.WriteLine($"DpiChanged: {e.DeviceDpiOld} -> {e.DeviceDpiNew} (rect: {e.SuggestedRectangle})");
-        }
-
 
         // OVERRIDE METHODS ==========
         public override void Restart()
         {
             base.Restart();
         }
-
-
-
-        [DllImport("User32.dll")]
-        private static extern IntPtr MonitorFromPoint(System.Drawing.Point pt, uint flags);
-
-        [DllImport("Shcore.dll")]
-        private static extern int GetDpiForMonitor(IntPtr hmonitor, int dpiType, out uint dpiX, out uint dpiY);
-
-
 
         protected override void UpdateAfter()
         {
@@ -128,18 +105,6 @@ namespace YoshisIsland_BizHawkTool
 #if DEBUG
             _toolOptions.Debug(APIs.Gui);
 #endif
-
-            // Get the monitor handle from a point inside the screen boundaries
-            var point = new System.Drawing.Point(this.Bounds.Left + this.Bounds.Width / 2, this.Bounds.Top + this.Bounds.Height / 2);
-            IntPtr monHandle = MonitorFromPoint(point, 2); // 2 = MONITOR_DEFAULTTOPRIMARY
-
-            // Get effective DPI (0 = MDT_EFFECTIVE_DPI)
-            GetDpiForMonitor(monHandle, 0, out uint dpiX, out uint dpiY);
-
-            APIs.Gui.Text(300, 300, $"DeviceDpi: {this.DeviceDpi}");
-            APIs.Gui.Text(300, 320, $"Monitor: {monHandle}");
-            APIs.Gui.Text(300, 340, $"Monitor DPIx: {dpiX}");
-            APIs.Gui.Text(300, 360, $"Monitor DPIy: {dpiY}");
         }
 
 
