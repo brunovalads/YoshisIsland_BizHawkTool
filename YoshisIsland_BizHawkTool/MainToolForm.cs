@@ -123,6 +123,22 @@ namespace YoshisIsland_BizHawkTool
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainToolForm));
             this.utilitiesFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.utilitiesGroupBox = new System.Windows.Forms.GroupBox();
+            this.debugGroupBox = new System.Windows.Forms.GroupBox();
+            this.lagmeterCheckBox = new System.Windows.Forms.CheckBox();
+            this.debugControllerDataCheckBox = new System.Windows.Forms.CheckBox();
+            this.spriteLoadStatusCheckBox = new System.Windows.Forms.CheckBox();
+            this.debugSpriteExtraCheckBox = new System.Windows.Forms.CheckBox();
+            this.debugPlayerExtraCheckBox = new System.Windows.Forms.CheckBox();
+            this.ambientSpritesGroupBox = new System.Windows.Forms.GroupBox();
+            this.ambientSpritesSlotInScreenCheckBox = new System.Windows.Forms.CheckBox();
+            this.ambientSpritesTableCheckBox = new System.Windows.Forms.CheckBox();
+            this.ambientSpritesInfoCheckBox = new System.Windows.Forms.CheckBox();
+            this.generalGroupBox = new System.Windows.Forms.GroupBox();
+            this.creditsWarpHelperCheckBox = new System.Windows.Forms.CheckBox();
+            this.movieInfoCheckBox = new System.Windows.Forms.CheckBox();
+            this.countersCheckBox = new System.Windows.Forms.CheckBox();
+            this.miscInfoCheckBox = new System.Windows.Forms.CheckBox();
+            this.overworldInfoCheckBox = new System.Windows.Forms.CheckBox();
             this.playerGroupBox = new System.Windows.Forms.GroupBox();
             this.playerTongueHitboxCheckBox = new System.Windows.Forms.CheckBox();
             this.playerEggInventoryCheckBox = new System.Windows.Forms.CheckBox();
@@ -158,24 +174,11 @@ namespace YoshisIsland_BizHawkTool
             this.eraseTilesButton = new System.Windows.Forms.Button();
             this.mouseInfoCheckBox = new System.Windows.Forms.CheckBox();
             this.drawTilesCheckBox = new System.Windows.Forms.CheckBox();
-            this.generalGroupBox = new System.Windows.Forms.GroupBox();
-            this.creditsWarpHelperCheckBox = new System.Windows.Forms.CheckBox();
-            this.movieInfoCheckBox = new System.Windows.Forms.CheckBox();
-            this.countersCheckBox = new System.Windows.Forms.CheckBox();
-            this.miscInfoCheckBox = new System.Windows.Forms.CheckBox();
-            this.overworldInfoCheckBox = new System.Windows.Forms.CheckBox();
-            this.ambientSpritesGroupBox = new System.Windows.Forms.GroupBox();
-            this.ambientSpritesSlotInScreenCheckBox = new System.Windows.Forms.CheckBox();
-            this.ambientSpritesTableCheckBox = new System.Windows.Forms.CheckBox();
-            this.ambientSpritesInfoCheckBox = new System.Windows.Forms.CheckBox();
-            this.debugGroupBox = new System.Windows.Forms.GroupBox();
-            this.lagmeterCheckBox = new System.Windows.Forms.CheckBox();
-            this.debugControllerDataCheckBox = new System.Windows.Forms.CheckBox();
-            this.spriteLoadStatusCheckBox = new System.Windows.Forms.CheckBox();
-            this.debugSpriteExtraCheckBox = new System.Windows.Forms.CheckBox();
-            this.debugPlayerExtraCheckBox = new System.Windows.Forms.CheckBox();
             this.utilitiesFlowLayoutPanel.SuspendLayout();
             this.utilitiesGroupBox.SuspendLayout();
+            this.debugGroupBox.SuspendLayout();
+            this.ambientSpritesGroupBox.SuspendLayout();
+            this.generalGroupBox.SuspendLayout();
             this.playerGroupBox.SuspendLayout();
             this.levelGroupBox.SuspendLayout();
             this.spritesGroupBox.SuspendLayout();
@@ -185,9 +188,6 @@ namespace YoshisIsland_BizHawkTool
             ((System.ComponentModel.ISupportInitialize)(this.topGapNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.leftGapNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.filterNumericUpDown)).BeginInit();
-            this.generalGroupBox.SuspendLayout();
-            this.ambientSpritesGroupBox.SuspendLayout();
-            this.debugGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // utilitiesFlowLayoutPanel
@@ -219,6 +219,179 @@ namespace YoshisIsland_BizHawkTool
             this.utilitiesGroupBox.TabIndex = 1;
             this.utilitiesGroupBox.TabStop = false;
             this.utilitiesGroupBox.Text = "Utilities";
+            // 
+            // debugGroupBox
+            // 
+            this.debugGroupBox.AutoSize = true;
+            this.debugGroupBox.Controls.Add(this.lagmeterCheckBox);
+            this.debugGroupBox.Controls.Add(this.debugControllerDataCheckBox);
+            this.debugGroupBox.Controls.Add(this.spriteLoadStatusCheckBox);
+            this.debugGroupBox.Controls.Add(this.debugSpriteExtraCheckBox);
+            this.debugGroupBox.Controls.Add(this.debugPlayerExtraCheckBox);
+            this.debugGroupBox.Location = new System.Drawing.Point(254, 247);
+            this.debugGroupBox.Name = "debugGroupBox";
+            this.debugGroupBox.Size = new System.Drawing.Size(119, 147);
+            this.debugGroupBox.TabIndex = 3;
+            this.debugGroupBox.TabStop = false;
+            this.debugGroupBox.Text = "Debug";
+            // 
+            // lagmeterCheckBox
+            // 
+            this.lagmeterCheckBox.AutoSize = true;
+            this.lagmeterCheckBox.Location = new System.Drawing.Point(6, 111);
+            this.lagmeterCheckBox.Name = "lagmeterCheckBox";
+            this.lagmeterCheckBox.Size = new System.Drawing.Size(70, 17);
+            this.lagmeterCheckBox.TabIndex = 1;
+            this.lagmeterCheckBox.Text = "Lagmeter";
+            this.lagmeterCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // debugControllerDataCheckBox
+            // 
+            this.debugControllerDataCheckBox.AutoSize = true;
+            this.debugControllerDataCheckBox.Location = new System.Drawing.Point(6, 88);
+            this.debugControllerDataCheckBox.Name = "debugControllerDataCheckBox";
+            this.debugControllerDataCheckBox.Size = new System.Drawing.Size(94, 17);
+            this.debugControllerDataCheckBox.TabIndex = 1;
+            this.debugControllerDataCheckBox.Text = "Controller data";
+            this.debugControllerDataCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // spriteLoadStatusCheckBox
+            // 
+            this.spriteLoadStatusCheckBox.AutoSize = true;
+            this.spriteLoadStatusCheckBox.Location = new System.Drawing.Point(6, 65);
+            this.spriteLoadStatusCheckBox.Name = "spriteLoadStatusCheckBox";
+            this.spriteLoadStatusCheckBox.Size = new System.Drawing.Size(107, 17);
+            this.spriteLoadStatusCheckBox.TabIndex = 1;
+            this.spriteLoadStatusCheckBox.Text = "Sprite load status";
+            this.spriteLoadStatusCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // debugSpriteExtraCheckBox
+            // 
+            this.debugSpriteExtraCheckBox.AutoSize = true;
+            this.debugSpriteExtraCheckBox.Location = new System.Drawing.Point(6, 42);
+            this.debugSpriteExtraCheckBox.Name = "debugSpriteExtraCheckBox";
+            this.debugSpriteExtraCheckBox.Size = new System.Drawing.Size(79, 17);
+            this.debugSpriteExtraCheckBox.TabIndex = 1;
+            this.debugSpriteExtraCheckBox.Text = "Sprite extra";
+            this.debugSpriteExtraCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // debugPlayerExtraCheckBox
+            // 
+            this.debugPlayerExtraCheckBox.AutoSize = true;
+            this.debugPlayerExtraCheckBox.Location = new System.Drawing.Point(6, 19);
+            this.debugPlayerExtraCheckBox.Name = "debugPlayerExtraCheckBox";
+            this.debugPlayerExtraCheckBox.Size = new System.Drawing.Size(81, 17);
+            this.debugPlayerExtraCheckBox.TabIndex = 1;
+            this.debugPlayerExtraCheckBox.Text = "Player extra";
+            this.debugPlayerExtraCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // ambientSpritesGroupBox
+            // 
+            this.ambientSpritesGroupBox.AutoSize = true;
+            this.ambientSpritesGroupBox.Controls.Add(this.ambientSpritesSlotInScreenCheckBox);
+            this.ambientSpritesGroupBox.Controls.Add(this.ambientSpritesTableCheckBox);
+            this.ambientSpritesGroupBox.Controls.Add(this.ambientSpritesInfoCheckBox);
+            this.ambientSpritesGroupBox.Location = new System.Drawing.Point(134, 201);
+            this.ambientSpritesGroupBox.Name = "ambientSpritesGroupBox";
+            this.ambientSpritesGroupBox.Size = new System.Drawing.Size(114, 101);
+            this.ambientSpritesGroupBox.TabIndex = 3;
+            this.ambientSpritesGroupBox.TabStop = false;
+            this.ambientSpritesGroupBox.Text = "Ambient sprites";
+            // 
+            // ambientSpritesSlotInScreenCheckBox
+            // 
+            this.ambientSpritesSlotInScreenCheckBox.AutoSize = true;
+            this.ambientSpritesSlotInScreenCheckBox.Location = new System.Drawing.Point(6, 65);
+            this.ambientSpritesSlotInScreenCheckBox.Name = "ambientSpritesSlotInScreenCheckBox";
+            this.ambientSpritesSlotInScreenCheckBox.Size = new System.Drawing.Size(99, 17);
+            this.ambientSpritesSlotInScreenCheckBox.TabIndex = 1;
+            this.ambientSpritesSlotInScreenCheckBox.Text = "Slots on screen";
+            this.ambientSpritesSlotInScreenCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // ambientSpritesTableCheckBox
+            // 
+            this.ambientSpritesTableCheckBox.AutoSize = true;
+            this.ambientSpritesTableCheckBox.Location = new System.Drawing.Point(6, 42);
+            this.ambientSpritesTableCheckBox.Name = "ambientSpritesTableCheckBox";
+            this.ambientSpritesTableCheckBox.Size = new System.Drawing.Size(53, 17);
+            this.ambientSpritesTableCheckBox.TabIndex = 1;
+            this.ambientSpritesTableCheckBox.Text = "Table";
+            this.ambientSpritesTableCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // ambientSpritesInfoCheckBox
+            // 
+            this.ambientSpritesInfoCheckBox.AutoSize = true;
+            this.ambientSpritesInfoCheckBox.Location = new System.Drawing.Point(6, 19);
+            this.ambientSpritesInfoCheckBox.Name = "ambientSpritesInfoCheckBox";
+            this.ambientSpritesInfoCheckBox.Size = new System.Drawing.Size(44, 17);
+            this.ambientSpritesInfoCheckBox.TabIndex = 1;
+            this.ambientSpritesInfoCheckBox.Text = "Info";
+            this.ambientSpritesInfoCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // generalGroupBox
+            // 
+            this.generalGroupBox.AutoSize = true;
+            this.generalGroupBox.Controls.Add(this.creditsWarpHelperCheckBox);
+            this.generalGroupBox.Controls.Add(this.movieInfoCheckBox);
+            this.generalGroupBox.Controls.Add(this.countersCheckBox);
+            this.generalGroupBox.Controls.Add(this.miscInfoCheckBox);
+            this.generalGroupBox.Controls.Add(this.overworldInfoCheckBox);
+            this.generalGroupBox.Location = new System.Drawing.Point(6, 218);
+            this.generalGroupBox.Name = "generalGroupBox";
+            this.generalGroupBox.Size = new System.Drawing.Size(122, 147);
+            this.generalGroupBox.TabIndex = 2;
+            this.generalGroupBox.TabStop = false;
+            this.generalGroupBox.Text = "General";
+            // 
+            // creditsWarpHelperCheckBox
+            // 
+            this.creditsWarpHelperCheckBox.AutoSize = true;
+            this.creditsWarpHelperCheckBox.Location = new System.Drawing.Point(6, 111);
+            this.creditsWarpHelperCheckBox.Name = "creditsWarpHelperCheckBox";
+            this.creditsWarpHelperCheckBox.Size = new System.Drawing.Size(110, 17);
+            this.creditsWarpHelperCheckBox.TabIndex = 1;
+            this.creditsWarpHelperCheckBox.Text = "Credits Warp help";
+            this.creditsWarpHelperCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // movieInfoCheckBox
+            // 
+            this.movieInfoCheckBox.AutoSize = true;
+            this.movieInfoCheckBox.Location = new System.Drawing.Point(6, 88);
+            this.movieInfoCheckBox.Name = "movieInfoCheckBox";
+            this.movieInfoCheckBox.Size = new System.Drawing.Size(75, 17);
+            this.movieInfoCheckBox.TabIndex = 1;
+            this.movieInfoCheckBox.Text = "Movie info";
+            this.movieInfoCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // countersCheckBox
+            // 
+            this.countersCheckBox.AutoSize = true;
+            this.countersCheckBox.Location = new System.Drawing.Point(6, 65);
+            this.countersCheckBox.Name = "countersCheckBox";
+            this.countersCheckBox.Size = new System.Drawing.Size(88, 17);
+            this.countersCheckBox.TabIndex = 1;
+            this.countersCheckBox.Text = "Counters info";
+            this.countersCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // miscInfoCheckBox
+            // 
+            this.miscInfoCheckBox.AutoSize = true;
+            this.miscInfoCheckBox.Location = new System.Drawing.Point(6, 42);
+            this.miscInfoCheckBox.Name = "miscInfoCheckBox";
+            this.miscInfoCheckBox.Size = new System.Drawing.Size(93, 17);
+            this.miscInfoCheckBox.TabIndex = 1;
+            this.miscInfoCheckBox.Text = "Miscellaneous";
+            this.miscInfoCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // overworldInfoCheckBox
+            // 
+            this.overworldInfoCheckBox.AutoSize = true;
+            this.overworldInfoCheckBox.Location = new System.Drawing.Point(6, 19);
+            this.overworldInfoCheckBox.Name = "overworldInfoCheckBox";
+            this.overworldInfoCheckBox.Size = new System.Drawing.Size(94, 17);
+            this.overworldInfoCheckBox.TabIndex = 1;
+            this.overworldInfoCheckBox.Text = "Overworld info";
+            this.overworldInfoCheckBox.UseVisualStyleBackColor = true;
             // 
             // playerGroupBox
             // 
@@ -660,179 +833,6 @@ namespace YoshisIsland_BizHawkTool
             this.drawTilesCheckBox.Text = "Draw tiles";
             this.drawTilesCheckBox.UseVisualStyleBackColor = true;
             // 
-            // generalGroupBox
-            // 
-            this.generalGroupBox.AutoSize = true;
-            this.generalGroupBox.Controls.Add(this.creditsWarpHelperCheckBox);
-            this.generalGroupBox.Controls.Add(this.movieInfoCheckBox);
-            this.generalGroupBox.Controls.Add(this.countersCheckBox);
-            this.generalGroupBox.Controls.Add(this.miscInfoCheckBox);
-            this.generalGroupBox.Controls.Add(this.overworldInfoCheckBox);
-            this.generalGroupBox.Location = new System.Drawing.Point(6, 218);
-            this.generalGroupBox.Name = "generalGroupBox";
-            this.generalGroupBox.Size = new System.Drawing.Size(122, 147);
-            this.generalGroupBox.TabIndex = 2;
-            this.generalGroupBox.TabStop = false;
-            this.generalGroupBox.Text = "General";
-            // 
-            // creditsWarpHelperCheckBox
-            // 
-            this.creditsWarpHelperCheckBox.AutoSize = true;
-            this.creditsWarpHelperCheckBox.Location = new System.Drawing.Point(6, 111);
-            this.creditsWarpHelperCheckBox.Name = "creditsWarpHelperCheckBox";
-            this.creditsWarpHelperCheckBox.Size = new System.Drawing.Size(110, 17);
-            this.creditsWarpHelperCheckBox.TabIndex = 1;
-            this.creditsWarpHelperCheckBox.Text = "Credits Warp help";
-            this.creditsWarpHelperCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // movieInfoCheckBox
-            // 
-            this.movieInfoCheckBox.AutoSize = true;
-            this.movieInfoCheckBox.Location = new System.Drawing.Point(6, 88);
-            this.movieInfoCheckBox.Name = "movieInfoCheckBox";
-            this.movieInfoCheckBox.Size = new System.Drawing.Size(75, 17);
-            this.movieInfoCheckBox.TabIndex = 1;
-            this.movieInfoCheckBox.Text = "Movie info";
-            this.movieInfoCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // countersCheckBox
-            // 
-            this.countersCheckBox.AutoSize = true;
-            this.countersCheckBox.Location = new System.Drawing.Point(6, 65);
-            this.countersCheckBox.Name = "countersCheckBox";
-            this.countersCheckBox.Size = new System.Drawing.Size(88, 17);
-            this.countersCheckBox.TabIndex = 1;
-            this.countersCheckBox.Text = "Counters info";
-            this.countersCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // miscInfoCheckBox
-            // 
-            this.miscInfoCheckBox.AutoSize = true;
-            this.miscInfoCheckBox.Location = new System.Drawing.Point(6, 42);
-            this.miscInfoCheckBox.Name = "miscInfoCheckBox";
-            this.miscInfoCheckBox.Size = new System.Drawing.Size(93, 17);
-            this.miscInfoCheckBox.TabIndex = 1;
-            this.miscInfoCheckBox.Text = "Miscellaneous";
-            this.miscInfoCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // overworldInfoCheckBox
-            // 
-            this.overworldInfoCheckBox.AutoSize = true;
-            this.overworldInfoCheckBox.Location = new System.Drawing.Point(6, 19);
-            this.overworldInfoCheckBox.Name = "overworldInfoCheckBox";
-            this.overworldInfoCheckBox.Size = new System.Drawing.Size(94, 17);
-            this.overworldInfoCheckBox.TabIndex = 1;
-            this.overworldInfoCheckBox.Text = "Overworld info";
-            this.overworldInfoCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // ambientSpritesGroupBox
-            // 
-            this.ambientSpritesGroupBox.AutoSize = true;
-            this.ambientSpritesGroupBox.Controls.Add(this.ambientSpritesSlotInScreenCheckBox);
-            this.ambientSpritesGroupBox.Controls.Add(this.ambientSpritesTableCheckBox);
-            this.ambientSpritesGroupBox.Controls.Add(this.ambientSpritesInfoCheckBox);
-            this.ambientSpritesGroupBox.Location = new System.Drawing.Point(134, 201);
-            this.ambientSpritesGroupBox.Name = "ambientSpritesGroupBox";
-            this.ambientSpritesGroupBox.Size = new System.Drawing.Size(114, 101);
-            this.ambientSpritesGroupBox.TabIndex = 3;
-            this.ambientSpritesGroupBox.TabStop = false;
-            this.ambientSpritesGroupBox.Text = "Ambient sprites";
-            // 
-            // ambientSpritesSlotInScreenCheckBox
-            // 
-            this.ambientSpritesSlotInScreenCheckBox.AutoSize = true;
-            this.ambientSpritesSlotInScreenCheckBox.Location = new System.Drawing.Point(6, 65);
-            this.ambientSpritesSlotInScreenCheckBox.Name = "ambientSpritesSlotInScreenCheckBox";
-            this.ambientSpritesSlotInScreenCheckBox.Size = new System.Drawing.Size(99, 17);
-            this.ambientSpritesSlotInScreenCheckBox.TabIndex = 1;
-            this.ambientSpritesSlotInScreenCheckBox.Text = "Slots on screen";
-            this.ambientSpritesSlotInScreenCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // ambientSpritesTableCheckBox
-            // 
-            this.ambientSpritesTableCheckBox.AutoSize = true;
-            this.ambientSpritesTableCheckBox.Location = new System.Drawing.Point(6, 42);
-            this.ambientSpritesTableCheckBox.Name = "ambientSpritesTableCheckBox";
-            this.ambientSpritesTableCheckBox.Size = new System.Drawing.Size(53, 17);
-            this.ambientSpritesTableCheckBox.TabIndex = 1;
-            this.ambientSpritesTableCheckBox.Text = "Table";
-            this.ambientSpritesTableCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // ambientSpritesInfoCheckBox
-            // 
-            this.ambientSpritesInfoCheckBox.AutoSize = true;
-            this.ambientSpritesInfoCheckBox.Location = new System.Drawing.Point(6, 19);
-            this.ambientSpritesInfoCheckBox.Name = "ambientSpritesInfoCheckBox";
-            this.ambientSpritesInfoCheckBox.Size = new System.Drawing.Size(44, 17);
-            this.ambientSpritesInfoCheckBox.TabIndex = 1;
-            this.ambientSpritesInfoCheckBox.Text = "Info";
-            this.ambientSpritesInfoCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // debugGroupBox
-            // 
-            this.debugGroupBox.AutoSize = true;
-            this.debugGroupBox.Controls.Add(this.lagmeterCheckBox);
-            this.debugGroupBox.Controls.Add(this.debugControllerDataCheckBox);
-            this.debugGroupBox.Controls.Add(this.spriteLoadStatusCheckBox);
-            this.debugGroupBox.Controls.Add(this.debugSpriteExtraCheckBox);
-            this.debugGroupBox.Controls.Add(this.debugPlayerExtraCheckBox);
-            this.debugGroupBox.Location = new System.Drawing.Point(254, 247);
-            this.debugGroupBox.Name = "debugGroupBox";
-            this.debugGroupBox.Size = new System.Drawing.Size(119, 147);
-            this.debugGroupBox.TabIndex = 3;
-            this.debugGroupBox.TabStop = false;
-            this.debugGroupBox.Text = "Debug";
-            // 
-            // lagmeterCheckBox
-            // 
-            this.lagmeterCheckBox.AutoSize = true;
-            this.lagmeterCheckBox.Location = new System.Drawing.Point(6, 111);
-            this.lagmeterCheckBox.Name = "lagmeterCheckBox";
-            this.lagmeterCheckBox.Size = new System.Drawing.Size(70, 17);
-            this.lagmeterCheckBox.TabIndex = 1;
-            this.lagmeterCheckBox.Text = "Lagmeter";
-            this.lagmeterCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // debugControllerDataCheckBox
-            // 
-            this.debugControllerDataCheckBox.AutoSize = true;
-            this.debugControllerDataCheckBox.Location = new System.Drawing.Point(6, 88);
-            this.debugControllerDataCheckBox.Name = "debugControllerDataCheckBox";
-            this.debugControllerDataCheckBox.Size = new System.Drawing.Size(94, 17);
-            this.debugControllerDataCheckBox.TabIndex = 1;
-            this.debugControllerDataCheckBox.Text = "Controller data";
-            this.debugControllerDataCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // spriteLoadStatusCheckBox
-            // 
-            this.spriteLoadStatusCheckBox.AutoSize = true;
-            this.spriteLoadStatusCheckBox.Location = new System.Drawing.Point(6, 65);
-            this.spriteLoadStatusCheckBox.Name = "spriteLoadStatusCheckBox";
-            this.spriteLoadStatusCheckBox.Size = new System.Drawing.Size(107, 17);
-            this.spriteLoadStatusCheckBox.TabIndex = 1;
-            this.spriteLoadStatusCheckBox.Text = "Sprite load status";
-            this.spriteLoadStatusCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // debugSpriteExtraCheckBox
-            // 
-            this.debugSpriteExtraCheckBox.AutoSize = true;
-            this.debugSpriteExtraCheckBox.Location = new System.Drawing.Point(6, 42);
-            this.debugSpriteExtraCheckBox.Name = "debugSpriteExtraCheckBox";
-            this.debugSpriteExtraCheckBox.Size = new System.Drawing.Size(79, 17);
-            this.debugSpriteExtraCheckBox.TabIndex = 1;
-            this.debugSpriteExtraCheckBox.Text = "Sprite extra";
-            this.debugSpriteExtraCheckBox.UseVisualStyleBackColor = true;
-            // 
-            // debugPlayerExtraCheckBox
-            // 
-            this.debugPlayerExtraCheckBox.AutoSize = true;
-            this.debugPlayerExtraCheckBox.Location = new System.Drawing.Point(6, 19);
-            this.debugPlayerExtraCheckBox.Name = "debugPlayerExtraCheckBox";
-            this.debugPlayerExtraCheckBox.Size = new System.Drawing.Size(81, 17);
-            this.debugPlayerExtraCheckBox.TabIndex = 1;
-            this.debugPlayerExtraCheckBox.Text = "Player extra";
-            this.debugPlayerExtraCheckBox.UseVisualStyleBackColor = true;
-            // 
             // MainToolForm
             // 
             this.ClientSize = new System.Drawing.Size(410, 553);
@@ -846,6 +846,12 @@ namespace YoshisIsland_BizHawkTool
             this.utilitiesFlowLayoutPanel.PerformLayout();
             this.utilitiesGroupBox.ResumeLayout(false);
             this.utilitiesGroupBox.PerformLayout();
+            this.debugGroupBox.ResumeLayout(false);
+            this.debugGroupBox.PerformLayout();
+            this.ambientSpritesGroupBox.ResumeLayout(false);
+            this.ambientSpritesGroupBox.PerformLayout();
+            this.generalGroupBox.ResumeLayout(false);
+            this.generalGroupBox.PerformLayout();
             this.playerGroupBox.ResumeLayout(false);
             this.playerGroupBox.PerformLayout();
             this.levelGroupBox.ResumeLayout(false);
@@ -859,12 +865,6 @@ namespace YoshisIsland_BizHawkTool
             ((System.ComponentModel.ISupportInitialize)(this.topGapNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.leftGapNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.filterNumericUpDown)).EndInit();
-            this.generalGroupBox.ResumeLayout(false);
-            this.generalGroupBox.PerformLayout();
-            this.ambientSpritesGroupBox.ResumeLayout(false);
-            this.ambientSpritesGroupBox.PerformLayout();
-            this.debugGroupBox.ResumeLayout(false);
-            this.debugGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
