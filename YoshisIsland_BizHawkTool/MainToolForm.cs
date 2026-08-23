@@ -109,11 +109,22 @@ namespace YoshisIsland_BizHawkTool
 #endif
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            ClientUtils.Init(APIs);
+
+            SetEventHandlers();
+        }
+
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
 
             _toolOptions.Save();
+
+            ClientUtils.ClearGaps();
         }
 
 
@@ -943,6 +954,14 @@ namespace YoshisIsland_BizHawkTool
 
                 control?.DataBindings.Add(controlBindingProperty, _toolOptions, optionsBindingProperty, true, DataSourceUpdateMode.OnPropertyChanged);
             }
+        }
+
+        private void SetEventHandlers()
+        {
+            leftGapNumericUpDown.ValueChanged += (sender, e) => { ClientUtils.SetGaps(); };
+            topGapNumericUpDown.ValueChanged += (sender, e) => { ClientUtils.SetGaps(); };
+            rightGapNumericUpDown.ValueChanged += (sender, e) => { ClientUtils.SetGaps(); };
+            bottomGapNumericUpDown.ValueChanged += (sender, e) => { ClientUtils.SetGaps(); };
         }
     }
 }
