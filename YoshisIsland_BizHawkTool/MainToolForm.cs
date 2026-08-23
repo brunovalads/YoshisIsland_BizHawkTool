@@ -1,9 +1,8 @@
-﻿using BizHawk.Client.Common;
-using BizHawk.Client.EmuHawk;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-//using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
+using BizHawk.Client.Common;
+using BizHawk.Client.EmuHawk;
 
 namespace YoshisIsland_BizHawkTool
 {
@@ -17,6 +16,7 @@ namespace YoshisIsland_BizHawkTool
 
 
         // FIELDS ==========
+        // UI
         private FlowLayoutPanel utilitiesFlowLayoutPanel;
         private GroupBox playerGroupBox;
         private CheckBox playerInfoCheckBox;
@@ -54,6 +54,8 @@ namespace YoshisIsland_BizHawkTool
         private NumericUpDown rightGapNumericUpDown;
         private NumericUpDown topGapNumericUpDown;
         private Button levelMapButton;
+        //Other
+        private ToolOptions _toolOptions = ToolOptions.Instance;
 
 
         // PROPERTIES ==========
@@ -65,16 +67,12 @@ namespace YoshisIsland_BizHawkTool
         // CONSTRUCTOR ==========
         public MainToolForm()
         {
-            //ClientSize = new Size(480, 320);
-            //SuspendLayout();
-            //Controls.Add(new Label { AutoSize = true, Text = "Yoshi!!" });
-            //ResumeLayout(performLayout: false);
-            //PerformLayout();
             InitializeComponent();
-            this.Icon = Properties.Resources.yoshi_icon_16px;
+            SetBindings();
         }
 
-        // METHODS ==========
+
+        // OVERRIDE METHODS ==========
         public override void Restart()
         {
             base.Restart();
@@ -91,6 +89,8 @@ namespace YoshisIsland_BizHawkTool
             }
         }
 
+
+        // PRIVATE METHODS ==========
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainToolForm));
@@ -257,7 +257,6 @@ namespace YoshisIsland_BizHawkTool
             this.playerInfoCheckBox.TabIndex = 1;
             this.playerInfoCheckBox.Text = "Info";
             this.playerInfoCheckBox.UseVisualStyleBackColor = true;
-            this.playerInfoCheckBox.DataBindings.Add("Checked", ToolOptions.Instance, "DisplayPlayerInfo", true, DataSourceUpdateMode.OnPropertyChanged);
             // 
             // levelGroupBox
             // 
@@ -637,6 +636,82 @@ namespace YoshisIsland_BizHawkTool
             ((System.ComponentModel.ISupportInitialize)(this.filterNumericUpDown)).EndInit();
             this.ResumeLayout(false);
 
+        }
+
+        private void SetBindings()
+        {
+            Dictionary<Control, string> controlBindingMap = new Dictionary<Control, string>()
+            {
+                // Player
+                { playerInfoCheckBox, nameof(_toolOptions.DisplayPlayerInfo) },
+                { playerHitboxCheckBox, nameof(_toolOptions.DisplayPlayerHitbox) },
+                { playerSolidInteractionCheckBox, nameof(_toolOptions.DisplayInteractionPoints) },
+                { playerBlockedStatusCheckBox, nameof(_toolOptions.DisplayBlockedStatus) },
+                { playerThrowInfoCheckBox, nameof(_toolOptions.DisplayThrowInfo) },
+                { playerEggInventoryCheckBox, nameof(_toolOptions.DisplayEggInfo) },
+                { playerTongueHitboxCheckBox, nameof(_toolOptions.DisplayTongueHitbox) },
+                // Sprites
+                { spritesInfoCheckBox, nameof(_toolOptions.DisplaySpriteInfo) },
+                { spritesTableCheckBox, nameof(_toolOptions.DisplaySpriteTable) },
+                { spritesHitboxCheckBox, nameof(_toolOptions.DisplaySpriteHitbox) },
+                //{ spritesSlotInScreenCheckBox, nameof(_toolOptions.DisplaySpriteSlotInScreen) }, // TODO: Decide if will be really used
+                { spritesSpecialInfoCheckBox, nameof(_toolOptions.DisplaySpriteSpecialInfo) },
+                { spritesSpawningAreasCheckBox, nameof(_toolOptions.DisplaySpriteSpawningAreas) },
+                // Level
+                { levelInfoCheckBox, nameof(_toolOptions.DisplayLevelInfo) },
+                { levelSpriteDataCheckBox, nameof(_toolOptions.DisplaySpriteData) },
+                { levelExtraCheckBox, nameof(_toolOptions.DisplayLevelExtra) },
+                { levelTileGridCheckBox, nameof(_toolOptions.DrawTileMapGrid) },
+                { levelTileTypesCheckBox, nameof(_toolOptions.DrawTileMapType) },
+                { levelScreensCheckBox, nameof(_toolOptions.DrawTileMapScreen) },
+                { levelLayoutCheckBox, nameof(_toolOptions.DisplayLevelLayout) },
+                // General
+                //{ overworldInfoCheckBox, nameof(_toolOptions.DisplayOverworldInfo) },
+                //{ miscInfoCheckBox, nameof(_toolOptions.DisplayMiscInfo) },
+                //{ countersCheckBox, nameof(_toolOptions.DisplayCounters) },
+                //{ movieInfoCheckBox, nameof(_toolOptions.DisplayMovieInfo) },
+                //{ creditsWarpHelperCheckBox, nameof(_toolOptions.DisplayCreditsWarpHelper) },
+                // Ambient sprites
+                //{ ambientSpritesInfoCheckBox, nameof(_toolOptions.DisplayAmbientSpriteInfo) },
+                //{ ambientSpritesTableCheckBox, nameof(_toolOptions.DisplayAmbientSpriteTable) },
+                //{ ambientSpritesSlotInScreenCheckBox, nameof(_toolOptions.DisplayAmbientSpriteSlotInScreen) },
+                // Debug
+                //{ debugPlayerExtraCheckBox, nameof(_toolOptions.DisplayDebugPlayerExtra) },
+                //{ debugSpriteExtraCheckBox, nameof(_toolOptions.DisplayDebugSpriteExtra) },
+                //{ debugAmbientSpriteCheckBox, nameof(_toolOptions.DisplayDebugAmbientSprite) },
+                //{ spriteLoadStatusCheckBox, nameof(_toolOptions.DisplaySpriteLoadStatus) },
+                //{ debugControllerDataCheckBox, nameof(_toolOptions.DisplayDebugControllerData) },
+                //{ lagmeterCheckBox, nameof(_toolOptions.DisplayLagmeter) },
+                //{ debugInfoCheckBox, nameof(_toolOptions.DisplayDebugInfo) },
+                // Settings
+                //{ windowsDisplayScaleComboBox, nameof(_toolOptions.WindowsDisplayScale) },
+                { drawTilesCheckBox, nameof(_toolOptions.DrawTilesWithClick) },
+                //{ maxTilesDrawnTextBox, nameof(_toolOptions.MaxTilesDrawn) },
+                { mouseInfoCheckBox, nameof(_toolOptions.DisplayMouseCoordinates) },
+                { darkFilterCheckBox, nameof(_toolOptions.DrawDarkFilter) },
+                { filterNumericUpDown, nameof(_toolOptions.DarkFilterOpacity) },
+                { leftGapNumericUpDown, nameof(_toolOptions.LeftGap) },
+                { rightGapNumericUpDown, nameof(_toolOptions.RightGap) },
+                { topGapNumericUpDown, nameof(_toolOptions.TopGap) },
+                { bottomGapNumericUpDown, nameof(_toolOptions.BottomGap) },
+
+            };
+
+            foreach (var binding in controlBindingMap)
+            {
+                Control control = binding.Key;
+                string optionsBindingProperty = binding.Value;
+
+                string controlBindingProperty = string.Empty;
+                if (control is CheckBox checkBox)
+                    controlBindingProperty = "Checked";
+                else if (control is NumericUpDown numericUpDown)
+                    controlBindingProperty = "Value";
+                else if (control is TextBox textBox)
+                    controlBindingProperty = "Text";
+
+                control?.DataBindings.Add(controlBindingProperty, _toolOptions, optionsBindingProperty, true, DataSourceUpdateMode.OnPropertyChanged);
+            }
         }
     }
 }
