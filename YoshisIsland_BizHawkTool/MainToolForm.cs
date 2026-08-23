@@ -87,9 +87,9 @@ namespace YoshisIsland_BizHawkTool
         // CONSTRUCTOR ==========
         public MainToolForm()
         {
+            ToolOptions.Load();
             InitializeComponent();
             SetBindings();
-
         }
 
 
@@ -107,6 +107,13 @@ namespace YoshisIsland_BizHawkTool
 #if DEBUG
             _toolOptions.Debug(APIs.Gui);
 #endif
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+
+            _toolOptions.Save();
         }
 
 

@@ -2,13 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace YoshisIsland_BizHawkTool
 {
+    [JsonConverter(typeof(ToolOptionsConverter))]
     internal class ToolOptions
     {
         // SINGLETON ==========
@@ -66,7 +70,7 @@ namespace YoshisIsland_BizHawkTool
         public int MaxTilesDrawn { get; set; } = 50;
         public bool DisplayMouseCoordinates { get; set; } = true;
         public bool DrawDarkFilter { get; set; } = true;
-        public int DarkFilterOpacity { get; set; } = 8;
+        public int DarkFilterOpacity { get; set; } = 50;
         public int LeftGap { get; set; } = 150;
         public int RightGap { get; set; } = 200;
         public int TopGap { get; set; } = 55;
@@ -80,6 +84,30 @@ namespace YoshisIsland_BizHawkTool
                 _instance = new ToolOptions();
 
             return _instance;
+        }
+
+        internal static void Load()
+        {
+            string configFilePath = GetConfigFilePath();
+            if (File.Exists(configFilePath))
+            {
+                string configJson = File.ReadAllText(configFilePath);
+                JsonSerializer.Deserialize<ToolOptions>(configJson);
+            }
+            else
+            {
+                GetInstance();
+            }
+        }
+
+        internal void Save()
+        {
+            string toolOptionsFilePath = GetConfigFilePath();
+
+            JsonSerializerOptions serializerOptions = new JsonSerializerOptions() { WriteIndented = true, IndentSize = 4 };
+            string toolOptionsJson = JsonSerializer.Serialize(this, serializerOptions);
+
+            File.WriteAllText(toolOptionsFilePath, toolOptionsJson);
         }
 
         internal void Debug(IGuiApi guiApi)
@@ -103,6 +131,17 @@ namespace YoshisIsland_BizHawkTool
                 guiApi.Text(2 + propertyNameStr.Length * 10, i * 16, $"{propertyValue}", color);
                 i++;
             }
+        }
+
+        internal static string GetConfigFilePath()
+        {
+            string localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string configFolderPath = Path.Combine(localAppDataPath, MainToolForm.TOOL_INTERNAL_NAME, "Config");
+            if (!Directory.Exists(configFolderPath))
+                Directory.CreateDirectory(configFolderPath);
+            string toolOptionsFilePath = Path.Combine(configFolderPath, $"{MainToolForm.TOOL_PUBLIC_NAME} Config.json");
+
+            return toolOptionsFilePath;
         }
     }
 }
