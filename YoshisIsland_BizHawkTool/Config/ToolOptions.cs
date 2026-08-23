@@ -55,11 +55,11 @@ namespace YoshisIsland_BizHawkTool
         // Debug
         public bool DisplayDebugPlayerExtra { get; set; } = true;
         public bool DisplayDebugSpriteExtra { get; set; } = true;
-        public bool DisplayDebugAmbientSprite { get; set; } = true;
+        public bool DisplayDebugAmbientSprite { get; set; } = true; // TODO: Decide if will be really used
         public bool DisplaySpriteLoadStatus { get; set; } = true;
         public bool DisplayDebugControllerData { get; set; } = true;
         public bool DisplayLagmeter { get; set; } = true;
-        public bool DisplayDebugInfo { get; set; } = true;
+        public bool DisplayDebugInfo { get; set; } = true; // TODO: Decide if will be really used
         // Settings
         public double WindowsDisplayScale { get; set; } = 1.0;
         public bool DrawTilesWithClick { get; set; } = true;
