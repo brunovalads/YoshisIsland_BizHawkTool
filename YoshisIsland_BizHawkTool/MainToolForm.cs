@@ -1,5 +1,5 @@
-using System;
-using System.Drawing;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using BizHawk.Client.Common;
 using BizHawk.Client.EmuHawk;
@@ -82,11 +82,10 @@ namespace YoshisIsland_BizHawkTool
         {
             APIs.Gui.ClearGraphics(DisplaySurfaceID.EmuCore);
             APIs.Gui.ClearGraphics(DisplaySurfaceID.Client);
-            if (ToolOptions.Instance.DisplayPlayerInfo)
-            {
-                APIs.Gui.DrawBox(0, 0, 100, 100, Color.FromArgb(0x40, 0xFF, 0x00, 0x00), Color.FromArgb(0x40, 0x00, 0xFF, 0x00), DisplaySurfaceID.EmuCore);
-                APIs.Gui.DrawBox(0, 0, 100, 100, Color.FromArgb(0x40, 0x00, 0x00, 0xFF), Color.Orange, DisplaySurfaceID.Client);
-            }
+
+#if DEBUG
+            _toolOptions.Debug(APIs.Gui);
+#endif
         }
 
 

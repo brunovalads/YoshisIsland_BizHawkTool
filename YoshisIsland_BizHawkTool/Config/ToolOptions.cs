@@ -1,6 +1,9 @@
-﻿using System;
+﻿using BizHawk.Client.Common;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -77,6 +80,29 @@ namespace YoshisIsland_BizHawkTool
                 _instance = new ToolOptions();
 
             return _instance;
+        }
+
+        internal void Debug(IGuiApi guiApi)
+        {
+            PropertyInfo[] toolOptionsProperties = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            int i = 0;
+            foreach (PropertyInfo toolOptionsProperty in toolOptionsProperties)
+            {
+                string propertyName = toolOptionsProperty.Name;
+                object propertyValue = toolOptionsProperty.GetValue(this);
+
+                string propertyNameStr = $"{propertyName}: ";
+                guiApi.Text(2, i * 16, propertyNameStr);
+                Color color;
+                if (propertyValue is bool boolValue)
+                    color = boolValue ? Color.FromArgb(0xFF, 0x00, 0xFF, 0x00) : Color.FromArgb(0xFF, 0xFF, 0x00, 0x00);
+                else if (propertyValue is string stringValue)
+                    color = Color.FromArgb(0xFF, 0xFF, 0x00, 0xFF);
+                else
+                    color = Color.FromArgb(0xFF, 0x00, 0xFF, 0xFF);
+                guiApi.Text(2 + propertyNameStr.Length * 10, i * 16, $"{propertyValue}", color);
+                i++;
+            }
         }
     }
 }
