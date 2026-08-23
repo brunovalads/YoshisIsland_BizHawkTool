@@ -113,7 +113,7 @@ namespace YoshisIsland_BizHawkTool
         {
             base.OnLoad(e);
 
-            ClientUtils.Init(APIs);
+            ClientManager.Init(APIs.EmuClient);
 
             SetEventHandlers();
         }
@@ -124,7 +124,7 @@ namespace YoshisIsland_BizHawkTool
 
             _toolOptions.Save();
 
-            ClientUtils.ClearGaps();
+            ClientManager.ClearGaps();
         }
 
 
@@ -958,10 +958,10 @@ namespace YoshisIsland_BizHawkTool
 
         private void SetEventHandlers()
         {
-            leftGapNumericUpDown.ValueChanged += (sender, e) => { ClientUtils.SetGaps(); };
-            topGapNumericUpDown.ValueChanged += (sender, e) => { ClientUtils.SetGaps(); };
-            rightGapNumericUpDown.ValueChanged += (sender, e) => { ClientUtils.SetGaps(); };
-            bottomGapNumericUpDown.ValueChanged += (sender, e) => { ClientUtils.SetGaps(); };
+            leftGapNumericUpDown.ValueChanged += (sender, e) => { ClientManager.SetGaps(); };
+            topGapNumericUpDown.ValueChanged += (sender, e) => { ClientManager.SetGaps(); };
+            rightGapNumericUpDown.ValueChanged += (sender, e) => { ClientManager.SetGaps(); };
+            bottomGapNumericUpDown.ValueChanged += (sender, e) => { ClientManager.SetGaps(); };
         }
     }
 }

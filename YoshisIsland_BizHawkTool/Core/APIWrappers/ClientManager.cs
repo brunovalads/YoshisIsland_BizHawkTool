@@ -7,13 +7,13 @@ using BizHawk.Client.Common;
 
 namespace YoshisIsland_BizHawkTool
 {
-    internal static class ClientUtils
+    internal static class ClientManager
     {
         private static IEmuClientApi _clientAPI;
 
-        internal static void Init(ApiContainer apis)
+        internal static void Init(IEmuClientApi clientAPI)
         {
-            _clientAPI = apis.EmuClient;
+            _clientAPI = clientAPI;
             SetGaps();
         }
 
