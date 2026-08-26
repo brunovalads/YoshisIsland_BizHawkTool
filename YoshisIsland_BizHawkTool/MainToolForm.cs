@@ -76,6 +76,8 @@ namespace YoshisIsland_BizHawkTool
 
         //Other
         private ToolOptions _toolOptions = ToolOptions.Instance;
+        private int _originalWindowWidth;
+        private int _originalWindowHeight;
 
 
         // PROPERTIES ==========
@@ -89,6 +91,8 @@ namespace YoshisIsland_BizHawkTool
         {
             ToolOptions.Load();
             InitializeComponent();
+            _originalWindowWidth = this.Width;
+            _originalWindowHeight = this.Height;
             SetBindings();
         }
 
@@ -97,6 +101,24 @@ namespace YoshisIsland_BizHawkTool
         public override void Restart()
         {
             base.Restart();
+
+            try
+            {
+                EmuManager.Init(APIs.Emulation);
+            }
+            catch (NoCoreLoadedException ex)
+            {
+                DisableFormWithMessage(ex.Message);
+                return;
+            }
+
+            if (this.Controls.Count > 0 && this.Controls[0] is not FlowLayoutPanel)
+            {
+                this.Controls.Clear();
+                this.Controls.Add(this.utilitiesFlowLayoutPanel);
+                this.Width = _originalWindowWidth;
+                this.Height = _originalWindowHeight;
+            }
         }
 
         protected override void UpdateAfter()
@@ -117,8 +139,19 @@ namespace YoshisIsland_BizHawkTool
         {
             base.OnLoad(e);
 
+            try
+            {
+                EmuManager.Init(APIs.Emulation);
+            }
+            catch (NoCoreLoadedException ex)
+            {
+                DisableFormWithMessage(ex.Message);
+            }
+
             ClientManager.Init(APIs.EmuClient);
             GuiManager.Init(APIs.Gui);
+
+
 
             SetEventHandlers();
         }
@@ -967,6 +1000,25 @@ namespace YoshisIsland_BizHawkTool
             topGapNumericUpDown.ValueChanged += (sender, e) => { ClientManager.SetGaps(); };
             rightGapNumericUpDown.ValueChanged += (sender, e) => { ClientManager.SetGaps(); };
             bottomGapNumericUpDown.ValueChanged += (sender, e) => { ClientManager.SetGaps(); };
+        }
+
+        private void DisableFormWithMessage(string message)
+        {
+            int labelWidth = this.Width - 8;
+            int labelHeight = 200;
+            Label messageLabel = new Label()
+            {
+                Name = "messageLabel",
+                Size = new System.Drawing.Size(labelWidth, labelHeight),
+                Location = new System.Drawing.Point(0, 4),
+                Font = new System.Drawing.Font(System.Drawing.FontFamily.GenericSansSerif, 16),
+                Text = message,
+                TextAlign = System.Drawing.ContentAlignment.TopCenter,
+            };
+            this.Controls.Clear();
+            this.Controls.Add(messageLabel);
+
+            this.Height = labelHeight + 8;
         }
     }
 }
