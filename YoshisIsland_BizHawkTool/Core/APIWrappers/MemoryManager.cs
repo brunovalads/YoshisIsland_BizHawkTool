@@ -1,24 +1,42 @@
 ﻿using BizHawk.Client.Common;
-using BizHawk.Client.EmuHawk;
-using BizHawk.Emulation.Common;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static BizHawk.Emulation.Common.MemoryDomain;
 
 namespace YoshisIsland_BizHawkTool
 {
     internal static class MemoryManager
     {
+        private const string ROM_KEYWORD = "ROM";
+        private const string SRAM_KEYWORD = "CARTRAM";
+        private const string MISSING_ROM_DOMAIN_EXCEPTION_MESSAGE = "This core doesn't have ROM domain available, please change the core.";
+        private const string MISSING_SRAM_DOMAIN_EXCEPTION_MESSAGE = "This core doesn't have SRAM domain available, please change the core.";
+
         private static IMemoryApi _memoryAPI;
         private static ToolOptions _options;
+        private static string _romDomainName;
+        private static string _sramDomainName;
 
         internal static void Init(IMemoryApi memoryAPI)
         {
             _memoryAPI = memoryAPI;
             _options = ToolOptions.Instance;
+            CheckMandatoryDomains();
+        }
+
+        private static void CheckMandatoryDomains()
+        {
+            IReadOnlyCollection<string> memoryDomainNameList = _memoryAPI.GetMemoryDomainList();
+
+            _romDomainName = memoryDomainNameList.FirstOrDefault(domainName => domainName.Contains(ROM_KEYWORD));
+            if (string.IsNullOrEmpty(_romDomainName))
+                throw new EnvironmentException(MISSING_ROM_DOMAIN_EXCEPTION_MESSAGE);
+
+            _sramDomainName = memoryDomainNameList.FirstOrDefault(domainName => domainName.Contains(SRAM_KEYWORD));
+            if (string.IsNullOrEmpty(_sramDomainName))
+                throw new EnvironmentException(MISSING_SRAM_DOMAIN_EXCEPTION_MESSAGE);
         }
 
         internal static bool FindBytes(string memoryDomain, byte[] bytes, int startOffset, out int? resultAddress)
@@ -32,22 +50,19 @@ namespace YoshisIsland_BizHawkTool
 
         internal static string GetRomHash()
         {
-            // TODO: Get rom domain automatically
-            return _memoryAPI.HashRegion(0x0, (int)_memoryAPI.GetMemoryDomainSize("CARTROM"), "CARTROM");
+            return _memoryAPI.HashRegion(0x0, (int)_memoryAPI.GetMemoryDomainSize(_romDomainName), _romDomainName);
         }
 
         internal static uint ReadByteRom(int address)
         {
-            // TODO: Get rom domain automatically
-            return _memoryAPI.ReadByte(address, "CARTROM");
+            return _memoryAPI.ReadByte(address, _romDomainName);
         }
 
         internal static long[] ReadBytesRom(int address, int dataCount, int dataSize = 1, Endian endian = Endian.Little)
         {
             int totalBytes = dataCount * dataSize;
 
-            // TODO: Get rom domain automatically
-            byte[] rawBytes = _memoryAPI.ReadByteRange(address, totalBytes, "CARTROM").ToArray();
+            byte[] rawBytes = _memoryAPI.ReadByteRange(address, totalBytes, _romDomainName).ToArray();
 
             long[] result = new long[dataCount];
 
