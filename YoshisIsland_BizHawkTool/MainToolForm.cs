@@ -104,9 +104,10 @@ namespace YoshisIsland_BizHawkTool
 
             try
             {
+                MemoryManager.Init(APIs.Memory);
                 EmuManager.Init(APIs.Emulation);
             }
-            catch (NoCoreLoadedException ex)
+            catch (EnvironmentException ex)
             {
                 DisableFormWithMessage(ex.Message);
                 return;
@@ -141,9 +142,10 @@ namespace YoshisIsland_BizHawkTool
 
             try
             {
+                MemoryManager.Init(APIs.Memory);
                 EmuManager.Init(APIs.Emulation);
             }
-            catch (NoCoreLoadedException ex)
+            catch (EnvironmentException ex)
             {
                 DisableFormWithMessage(ex.Message);
             }
