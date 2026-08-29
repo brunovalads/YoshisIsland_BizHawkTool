@@ -11,13 +11,13 @@ namespace YoshisIsland_BizHawkTool
     {
         private const string ROM_KEYWORD = "ROM";
         private const string SRAM_KEYWORD = "CARTRAM";
-        private const string MISSING_ROM_DOMAIN_EXCEPTION_MESSAGE = "This core doesn't have ROM domain available, please change the core.";
-        private const string MISSING_SRAM_DOMAIN_EXCEPTION_MESSAGE = "This core doesn't have SRAM domain available, please change the core.";
+        private const string WRAM_KEYWORD = "WRAM";
 
         private static IMemoryApi _memoryAPI;
         private static ToolOptions _options;
         private static string _romDomainName;
         private static string _sramDomainName;
+        private static string _wramDomainName;
 
         internal static void Init(IMemoryApi memoryAPI)
         {
@@ -45,6 +45,10 @@ namespace YoshisIsland_BizHawkTool
             _sramDomainName = memoryDomainNameList.FirstOrDefault(domainName => domainName.Contains(SRAM_KEYWORD));
             if (string.IsNullOrEmpty(_sramDomainName))
                 throw EnvironmentException.MissingMemoryDomain(MemoryDomain.SRAM);
+
+            _wramDomainName = memoryDomainNameList.FirstOrDefault(domainName => domainName.Contains(WRAM_KEYWORD));
+            if (string.IsNullOrEmpty(_wramDomainName))
+                throw EnvironmentException.MissingMemoryDomain(MemoryDomain.WRAM);
         }
 
         internal static bool FindBytes(string memoryDomain, byte[] bytes, int startOffset, out int? resultAddress)
