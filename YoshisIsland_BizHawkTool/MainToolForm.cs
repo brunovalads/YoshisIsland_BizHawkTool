@@ -21,6 +21,7 @@ namespace YoshisIsland_BizHawkTool
         // FIELDS ==========
         // UI
         private FlowLayoutPanel utilitiesFlowLayoutPanel;
+        private Label gameNameLabel;
         private GroupBox playerGroupBox;
         private CheckBox playerInfoCheckBox;
         private CheckBox playerHitboxCheckBox;
@@ -106,6 +107,8 @@ namespace YoshisIsland_BizHawkTool
             {
                 MemoryManager.Init(APIs.Memory);
                 EmuManager.Init(APIs.Emulation);
+
+                gameNameLabel.Text = EmuManager.CurrentGameVersion.ToString();
             }
             catch (EnvironmentException ex)
             {
@@ -173,6 +176,7 @@ namespace YoshisIsland_BizHawkTool
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainToolForm));
             this.utilitiesFlowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.gameNameLabel = new System.Windows.Forms.Label();
             this.utilitiesGroupBox = new System.Windows.Forms.GroupBox();
             this.debugGroupBox = new System.Windows.Forms.GroupBox();
             this.lagmeterCheckBox = new System.Windows.Forms.CheckBox();
@@ -246,12 +250,25 @@ namespace YoshisIsland_BizHawkTool
             this.utilitiesFlowLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.utilitiesFlowLayoutPanel.Controls.Add(this.gameNameLabel);
             this.utilitiesFlowLayoutPanel.Controls.Add(this.utilitiesGroupBox);
             this.utilitiesFlowLayoutPanel.Controls.Add(this.settingsGroupBox);
+            this.utilitiesFlowLayoutPanel.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
             this.utilitiesFlowLayoutPanel.Location = new System.Drawing.Point(12, 12);
             this.utilitiesFlowLayoutPanel.Name = "utilitiesFlowLayoutPanel";
             this.utilitiesFlowLayoutPanel.Size = new System.Drawing.Size(386, 529);
             this.utilitiesFlowLayoutPanel.TabIndex = 1;
+            // 
+            // gameNameLabel
+            // 
+            this.gameNameLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.gameNameLabel.AutoSize = true;
+            this.gameNameLabel.Location = new System.Drawing.Point(283, 0);
+            this.gameNameLabel.Name = "gameNameLabel";
+            this.gameNameLabel.Size = new System.Drawing.Size(100, 13);
+            this.gameNameLabel.TabIndex = 4;
+            this.gameNameLabel.Text = "Yoshi\'s Island U 1.0";
+            this.gameNameLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // utilitiesGroupBox
             // 
@@ -263,7 +280,7 @@ namespace YoshisIsland_BizHawkTool
             this.utilitiesGroupBox.Controls.Add(this.levelGroupBox);
             this.utilitiesGroupBox.Controls.Add(this.spritesGroupBox);
             this.utilitiesGroupBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.utilitiesGroupBox.Location = new System.Drawing.Point(3, 3);
+            this.utilitiesGroupBox.Location = new System.Drawing.Point(4, 16);
             this.utilitiesGroupBox.Name = "utilitiesGroupBox";
             this.utilitiesGroupBox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.utilitiesGroupBox.Size = new System.Drawing.Size(379, 413);
@@ -715,7 +732,7 @@ namespace YoshisIsland_BizHawkTool
             this.settingsGroupBox.Controls.Add(this.eraseTilesButton);
             this.settingsGroupBox.Controls.Add(this.mouseInfoCheckBox);
             this.settingsGroupBox.Controls.Add(this.drawTilesCheckBox);
-            this.settingsGroupBox.Location = new System.Drawing.Point(3, 422);
+            this.settingsGroupBox.Location = new System.Drawing.Point(4, 435);
             this.settingsGroupBox.Name = "settingsGroupBox";
             this.settingsGroupBox.Size = new System.Drawing.Size(379, 103);
             this.settingsGroupBox.TabIndex = 2;
