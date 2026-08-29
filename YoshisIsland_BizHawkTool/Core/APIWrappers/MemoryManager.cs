@@ -18,6 +18,8 @@ namespace YoshisIsland_BizHawkTool
         private static string _romDomainName;
         private static string _sramDomainName;
         private static string _wramDomainName;
+        private static Dictionary<MemoryDomain, string> _memoryDomainNameMap;
+        private static Dictionary<MemoryDomain, uint> _memoryDomainSizeMap;
 
         internal static void Init(IMemoryApi memoryAPI)
         {
@@ -49,32 +51,49 @@ namespace YoshisIsland_BizHawkTool
             _wramDomainName = memoryDomainNameList.FirstOrDefault(domainName => domainName.Contains(WRAM_KEYWORD));
             if (string.IsNullOrEmpty(_wramDomainName))
                 throw EnvironmentException.MissingMemoryDomain(MemoryDomain.WRAM);
+
+            _memoryDomainNameMap = new Dictionary<MemoryDomain, string>()
+            {
+                { MemoryDomain.ROM, _romDomainName },
+                { MemoryDomain.SRAM, _sramDomainName },
+                { MemoryDomain.WRAM, _wramDomainName },
+            };
+
+            _memoryDomainSizeMap = new Dictionary<MemoryDomain, uint>()
+            {
+                { MemoryDomain.ROM, _memoryAPI.GetMemoryDomainSize(_romDomainName) },
+                { MemoryDomain.SRAM, _memoryAPI.GetMemoryDomainSize(_sramDomainName) },
+                { MemoryDomain.WRAM, _memoryAPI.GetMemoryDomainSize(_wramDomainName) },
+            };
         }
 
-        internal static bool FindBytes(string memoryDomain, byte[] bytes, int startOffset, out int? resultAddress)
+        internal static bool FindBytes(MemoryDomain memoryDomain, byte[] bytes, int startOffset, out int? resultAddress)
         {
-            IReadOnlyList<byte> domainBytes = _memoryAPI.ReadByteRange(startOffset, (int)_memoryAPI.GetMemoryDomainSize(memoryDomain) - startOffset, memoryDomain);
+            uint memoryDomainSize = _memoryDomainSizeMap[memoryDomain];
+            string memoryDomainName = _memoryDomainNameMap[memoryDomain];
+
+            IReadOnlyList<byte> domainBytes = _memoryAPI.ReadByteRange(startOffset, (int)memoryDomainSize - startOffset, memoryDomainName);
 
             resultAddress = ((ReadOnlySpan<byte>)domainBytes.ToArray()).IndexOf(bytes);
 
             return resultAddress != -1;
         }
 
-        internal static string GetRomHash()
+        internal static string GetDomainHash(MemoryDomain memoryDomain)
         {
-            return _memoryAPI.HashRegion(0x0, (int)_memoryAPI.GetMemoryDomainSize(_romDomainName), _romDomainName);
+            return _memoryAPI.HashRegion(0x0, (int)_memoryDomainSizeMap[memoryDomain], _memoryDomainNameMap[memoryDomain]);
         }
 
-        internal static uint ReadByteRom(int address)
+        internal static uint ReadByte(int address, MemoryDomain memoryDomain)
         {
-            return _memoryAPI.ReadByte(address, _romDomainName);
+            return _memoryAPI.ReadByte(address, _memoryDomainNameMap[memoryDomain]);
         }
 
-        internal static long[] ReadBytesRom(int address, int dataCount, int dataSize = 1, Endian endian = Endian.Little)
+        internal static long[] ReadByteRange(int address, MemoryDomain memoryDomain, int dataCount, int dataSize = 1, Endian endian = Endian.Little)
         {
             int totalBytes = dataCount * dataSize;
 
-            byte[] rawBytes = _memoryAPI.ReadByteRange(address, totalBytes, _romDomainName).ToArray();
+            byte[] rawBytes = _memoryAPI.ReadByteRange(address, totalBytes, _memoryDomainNameMap[memoryDomain]).ToArray();
 
             long[] result = new long[dataCount];
 

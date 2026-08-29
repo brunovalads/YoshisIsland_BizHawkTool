@@ -46,27 +46,32 @@ namespace YoshisIsland_BizHawkTool
 
         private static GameVersionData CheckIfPracticeCartLoaded()
         {
-            // TODO: Leave to MemoryManager the responsability of defining the ROM domain
-            if (!MemoryManager.FindBytes("CARTROM", YIData.PracticeHackSignature, 0x00, out int? foundAddress))
+            if (!MemoryManager.FindBytes(MemoryDomain.ROM, YIData.PracticeHackSignature, 0x00, out int? foundAddress))
                 return null;
 
-            GameRegion region = (GameRegion)MemoryManager.ReadByteRom(YIData.SNES_REGION_ROM_ADDRESS);
+            GameRegion region = (GameRegion)MemoryManager.ReadByte(YIData.SNES_REGION_ROM_ADDRESS, MemoryDomain.ROM);
 
             MemoryManager.FindBytes(
-                "CARTROM", YIData.PracticeHackSegmentSignature, foundAddress.Value + YIData.PracticeHackSegmentSignature.Length, out int? segmentEndAddressRel);
+                MemoryDomain.ROM,
+                YIData.PracticeHackSegmentSignature,
+                foundAddress.Value + YIData.PracticeHackSegmentSignature.Length,
+                out int? segmentEndAddressRel);
             int practiceVersionBytesAdress = foundAddress.Value + (17 * 2);
             int segmentEndAddress = foundAddress.Value + YIData.PracticeHackSegmentSignature.Length + segmentEndAddressRel.Value;
-            long[] practiceVersionBytes = MemoryManager.ReadBytesRom(practiceVersionBytesAdress, (segmentEndAddress - practiceVersionBytesAdress) / 2, 2);
+            long[] practiceVersionBytes = MemoryManager.ReadByteRange(
+                practiceVersionBytesAdress, MemoryDomain.ROM, (segmentEndAddress - practiceVersionBytesAdress) / 2, 2);
             string version = string.Join("", practiceVersionBytes.Select(b => YIData.PracticeHackStringFontMap[(byte)b]));
 
-            GameVersionData practiceCartVersionData = GameVersionData.CreatePracticeHackData(region, version, MemoryManager.GetRomHash());
+            string romHash = MemoryManager.GetDomainHash(MemoryDomain.ROM);
+
+            GameVersionData practiceCartVersionData = GameVersionData.CreatePracticeHackData(region, version, romHash);
 
             return practiceCartVersionData;
         }
 
         private static GameVersionData CheckIfOriginalGameLoaded()
         {
-            string romHash = MemoryManager.GetRomHash();
+            string romHash = MemoryManager.GetDomainHash(MemoryDomain.ROM);
 
             foreach (GameVersionData versionData in YIData.OriginalVersionDatas)
             {
@@ -79,14 +84,21 @@ namespace YoshisIsland_BizHawkTool
 
         private static GameVersionData CheckIfAnyHackLoaded()
         {
-            byte[] gameHeaderInfo = MemoryManager.ReadBytesRom(YIData.SNES_GAME_NAME_ROM_ADDRESS, 28).Select(b => (byte)b).ToArray();
+            byte[] gameHeaderInfo = MemoryManager.ReadByteRange(
+                YIData.SNES_GAME_NAME_ROM_ADDRESS, MemoryDomain.ROM, 28).Select(b => (byte)b).ToArray();
 
             foreach (KeyValuePair<GameVersionData, byte[]> originalHeaderDataMap in YIData.OriginalHeaderDatas)
             {
                 GameVersionData originalVersionData = originalHeaderDataMap.Key;
                 byte[] originalHeaderData = originalHeaderDataMap.Value;
                 if (((ReadOnlySpan<byte>)gameHeaderInfo).IndexOf(originalHeaderData) != -1)
-                    return GameVersionData.CreateGeneralHackData(originalVersionData.Region, originalVersionData.Version, MemoryManager.GetRomHash(), _gameName);
+                {
+                    return GameVersionData.CreateGeneralHackData(
+                        originalVersionData.Region,
+                        originalVersionData.Version,
+                        MemoryManager.GetDomainHash(MemoryDomain.ROM),
+                        _gameName);
+                }
             }
 
             return null;
