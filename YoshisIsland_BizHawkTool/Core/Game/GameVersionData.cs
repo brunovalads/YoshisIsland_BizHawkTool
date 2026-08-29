@@ -74,11 +74,11 @@ namespace YoshisIsland_BizHawkTool
         public override string ToString()
         {
             if (IsPracticeHack)
-                return $"{GameName} {Version}";
+                return $"{GameName} {Version} ({Region})";
             else if (IsHack)
                 return $"{GameName} (hack of {Region} {Version})";
             else
-                return $"{GameName} {Region} {Version}";
+                return $"{GameName} ({Region} {Version})";
         }
     }
 }
