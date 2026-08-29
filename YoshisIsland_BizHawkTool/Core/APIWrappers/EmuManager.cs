@@ -11,8 +11,6 @@ namespace YoshisIsland_BizHawkTool
     internal static class EmuManager
     {
         private const string NULL_SYSTEM_ID = "NULL";
-        private const string CORE_NOT_LOADED_EXCEPTION_MESSAGE = "This external tool should be used with a core loaded. Open the game ROM and run the tool again.";
-        private const string YI_NOT_LOADED_EXCEPTION_MESSAGE = "This external tool should only be used for Yoshi's Island (SNES, any version or hack)."; // TODO: Remove "SNES" if I make it work with GBA too
 
         private static IEmulationApi _emuAPI;
         private static ToolOptions _options;
@@ -31,7 +29,7 @@ namespace YoshisIsland_BizHawkTool
         private static void CheckIfCoreLoaded()
         {
             if (_emuAPI.GetSystemId() == NULL_SYSTEM_ID)
-                throw new EnvironmentException(CORE_NOT_LOADED_EXCEPTION_MESSAGE);
+                throw EnvironmentException.CoreNotLoaded();
         }
 
         private static void CheckIfYoshisIslandLoaded()
@@ -43,7 +41,7 @@ namespace YoshisIsland_BizHawkTool
             CurrentGameVersion ??= CheckIfAnyHackLoaded();
 
             if (CurrentGameVersion == null)
-                throw new EnvironmentException(YI_NOT_LOADED_EXCEPTION_MESSAGE);
+                throw EnvironmentException.YINotLoaded();
         }
 
         private static GameVersionData CheckIfPracticeCartLoaded()

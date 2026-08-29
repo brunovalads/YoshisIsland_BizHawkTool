@@ -28,15 +28,23 @@ namespace YoshisIsland_BizHawkTool
 
         private static void CheckMandatoryDomains()
         {
-            IReadOnlyCollection<string> memoryDomainNameList = _memoryAPI.GetMemoryDomainList();
+            IReadOnlyCollection<string> memoryDomainNameList;
+            try
+            {
+                memoryDomainNameList = _memoryAPI.GetMemoryDomainList();
+            }
+            catch (Exception ex)
+            {
+                throw EnvironmentException.CoreNotLoaded(ex);
+            }
 
             _romDomainName = memoryDomainNameList.FirstOrDefault(domainName => domainName.Contains(ROM_KEYWORD));
             if (string.IsNullOrEmpty(_romDomainName))
-                throw new EnvironmentException(MISSING_ROM_DOMAIN_EXCEPTION_MESSAGE);
+                throw EnvironmentException.MissingMemoryDomain(MemoryDomain.ROM);
 
             _sramDomainName = memoryDomainNameList.FirstOrDefault(domainName => domainName.Contains(SRAM_KEYWORD));
             if (string.IsNullOrEmpty(_sramDomainName))
-                throw new EnvironmentException(MISSING_SRAM_DOMAIN_EXCEPTION_MESSAGE);
+                throw EnvironmentException.MissingMemoryDomain(MemoryDomain.SRAM);
         }
 
         internal static bool FindBytes(string memoryDomain, byte[] bytes, int startOffset, out int? resultAddress)
