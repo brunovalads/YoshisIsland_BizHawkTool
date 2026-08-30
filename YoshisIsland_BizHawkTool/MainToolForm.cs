@@ -85,11 +85,13 @@ namespace YoshisIsland_BizHawkTool
         protected override string WindowTitleStatic => WINDOW_TITLE;
         public ApiContainer? _maybeAPIContainer { get; set; }
         private ApiContainer APIs => _maybeAPIContainer!;
+        private bool ValidCoreAndGame { get; set; }
 
 
         // CONSTRUCTOR ==========
         public MainToolForm()
         {
+            ValidCoreAndGame = false;
             ToolOptions.Load();
             InitializeComponent();
             _originalWindowWidth = this.Width;
@@ -109,9 +111,15 @@ namespace YoshisIsland_BizHawkTool
                 EmuManager.Init(APIs.Emulation);
 
                 gameNameLabel.Text = EmuManager.CurrentGameVersion.ToString();
+
+                ValidCoreAndGame = true;
             }
             catch (EnvironmentException ex)
             {
+                ValidCoreAndGame = false;
+
+                ClientManager.ClearGaps();
+                GuiManager.Clear();
                 DisableFormWithMessage(ex.Message);
                 return;
             }
@@ -129,8 +137,12 @@ namespace YoshisIsland_BizHawkTool
         {
             try
             {
-                ClientManager.UpdateScreenInfos();
-                GuiManager.DrawEverything();
+                if (ValidCoreAndGame)
+                {
+                    ClientManager.SetGaps();
+                    ClientManager.UpdateScreenInfos();
+                    GuiManager.DrawEverything();
+                }
             }
             catch (Exception ex)
             {

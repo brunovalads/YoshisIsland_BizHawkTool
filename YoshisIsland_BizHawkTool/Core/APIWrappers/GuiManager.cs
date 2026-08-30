@@ -25,8 +25,7 @@ namespace YoshisIsland_BizHawkTool
 
         internal static void DrawEverything()
         {
-            _guiAPI.ClearGraphics(DisplaySurfaceID.EmuCore);
-            _guiAPI.ClearGraphics(DisplaySurfaceID.Client);
+            Clear();
 
             DrawDarkFilter();
 
@@ -34,6 +33,12 @@ namespace YoshisIsland_BizHawkTool
             //_options.Debug(_guiAPI);
             ClientManager.Debug(_guiAPI);
 #endif
+        }
+
+        internal static void Clear()
+        {
+            _guiAPI.ClearGraphics(DisplaySurfaceID.EmuCore);
+            _guiAPI.ClearGraphics(DisplaySurfaceID.Client);
         }
 
         private static void DrawDarkFilter()
