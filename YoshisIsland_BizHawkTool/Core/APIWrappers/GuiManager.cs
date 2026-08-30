@@ -31,7 +31,8 @@ namespace YoshisIsland_BizHawkTool
             DrawDarkFilter();
 
 #if DEBUG
-            _options.Debug(_guiAPI);
+            //_options.Debug(_guiAPI);
+            ClientManager.Debug(_guiAPI);
 #endif
         }
 

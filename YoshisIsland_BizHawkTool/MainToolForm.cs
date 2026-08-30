@@ -129,6 +129,7 @@ namespace YoshisIsland_BizHawkTool
         {
             try
             {
+                ClientManager.UpdateScreenInfos();
                 GuiManager.DrawEverything();
             }
             catch (Exception ex)
@@ -155,8 +156,6 @@ namespace YoshisIsland_BizHawkTool
 
             ClientManager.Init(APIs.EmuClient);
             GuiManager.Init(APIs.Gui);
-
-
 
             SetEventHandlers();
         }
