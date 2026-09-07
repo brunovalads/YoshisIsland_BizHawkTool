@@ -160,14 +160,13 @@ namespace YoshisIsland_BizHawkTool
             {
                 MemoryManager.Init(APIs.Memory);
                 EmuManager.Init(APIs.Emulation);
+                ClientManager.Init(APIs.EmuClient);
+                GuiManager.Init(APIs.Gui);
             }
             catch (EnvironmentException ex)
             {
                 DisableFormWithMessage(ex.Message);
             }
-
-            ClientManager.Init(APIs.EmuClient);
-            GuiManager.Init(APIs.Gui);
 
             SetEventHandlers();
         }
