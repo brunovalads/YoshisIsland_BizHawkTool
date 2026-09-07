@@ -37,15 +37,15 @@ namespace YoshisIsland_BizHawkTool
 
         internal static void Clear()
         {
-            _guiAPI.ClearGraphics(DisplaySurfaceID.EmuCore);
-            _guiAPI.ClearGraphics(DisplaySurfaceID.Client);
+            _guiAPI?.ClearGraphics(DisplaySurfaceID.EmuCore);
+            _guiAPI?.ClearGraphics(DisplaySurfaceID.Client);
         }
 
         private static void DrawDarkFilter()
         {
             int darkFilterOpacity = Math.Max(Math.Min((int)(0xFF * _options.DarkFilterOpacity / 100.0), 0xFF), 0x00);
             Color darkFilterColor = Color.FromArgb(darkFilterOpacity, _darkFilterBaseColor);
-            _guiAPI.DrawRectangle(_options.LeftGap, _options.TopGap,
+            _guiAPI?.DrawRectangle(_options.LeftGap, _options.TopGap,
                                   SNES_SCREEN_WIDTH - 1, SNES_SCREEN_HEIGHT - 1,
                                   darkFilterColor, darkFilterColor, DisplaySurfaceID.EmuCore);
         }

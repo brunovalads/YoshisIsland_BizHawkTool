@@ -29,7 +29,7 @@ namespace YoshisIsland_BizHawkTool
 
         internal static void SetGaps()
         {
-            _clientAPI.SetGameExtraPadding(
+            _clientAPI?.SetGameExtraPadding(
                 ToolOptions.Instance.LeftGap,
                 ToolOptions.Instance.TopGap,
                 ToolOptions.Instance.RightGap,
@@ -39,11 +39,14 @@ namespace YoshisIsland_BizHawkTool
 
         internal static void ClearGaps()
         {
-            _clientAPI.SetGameExtraPadding(0, 0, 0, 0);
+            _clientAPI?.SetGameExtraPadding(0, 0, 0, 0);
         }
 
         internal static void UpdateScreenInfos()
         {
+            if (_clientAPI == null)
+                return;
+
             int bufferWidth = _clientAPI.BufferWidth();
             int bufferHeight = _clientAPI.BufferHeight();
             Point coreMinPointInWindow = _clientAPI.TransformPoint(new Point(0, 0));
@@ -92,6 +95,9 @@ namespace YoshisIsland_BizHawkTool
 
         internal static void Debug(IGuiApi guiApi)
         {
+            if (guiApi == null)
+                return;
+
             bool showTextualDebug = false;
             bool showVisualDebug = true;
 
