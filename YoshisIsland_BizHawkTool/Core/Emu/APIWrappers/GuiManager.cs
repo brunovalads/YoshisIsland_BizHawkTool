@@ -31,7 +31,7 @@ namespace YoshisIsland_BizHawkTool
 #if DEBUG
             //_options.Debug(_guiAPI);
             //ClientManager.Debug(_guiAPI);
-            DebugPerformance(true);
+            //DebugPerformance(true);
 #endif
         }
 
