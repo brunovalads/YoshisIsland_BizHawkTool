@@ -147,7 +147,7 @@ namespace YoshisIsland_BizHawkTool
             catch (Exception ex)
             {
                 Debug.WriteLine($"\nException: {ex.Message}");
-                Debug.WriteLine($"InnerException: {ex.InnerException.Message}");
+                Debug.WriteLine($"InnerException: {ex.InnerException?.Message}");
                 Debug.WriteLine($"Stack:\n{ex.StackTrace}");
             }
         }
