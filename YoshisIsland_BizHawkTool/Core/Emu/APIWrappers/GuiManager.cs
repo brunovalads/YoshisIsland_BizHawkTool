@@ -11,6 +11,8 @@ namespace YoshisIsland_BizHawkTool
     {
         internal const int SNES_SCREEN_WIDTH = 256;
         internal const int SNES_SCREEN_HEIGHT = 224;
+        internal const int BIZHAWK_FONT_WIDTH = 10;
+        internal const int BIZHAWK_FONT_HEIGHT = 18;
 
         private static IGuiApi _guiAPI;
         private static ToolOptions _options;
@@ -27,6 +29,8 @@ namespace YoshisIsland_BizHawkTool
             Clear();
 
             DrawDarkFilter();
+
+            Yoshi.Instance.DrawInfo(_guiAPI);
 
 #if DEBUG
             //_options.Debug(_guiAPI);

@@ -65,6 +65,9 @@
 		<BizHawkPath>$(ProjectDir)../BizHawk/BizHawk $(BizHawkVersion)</BizHawkPath>
 	</PropertyGroup>
 	<ItemGroup>
+	  <None Remove="Resources\Images\yoshi_blocked_status.png" />
+	</ItemGroup>
+	<ItemGroup>
 		<Reference Include="BizHawk.Bizware.Graphics" HintPath="$(BizHawkPath)/dll/BizHawk.Bizware.Graphics.dll">
 		  <Private></Private>
 		</Reference>
@@ -112,6 +115,9 @@
 		<EmbeddedResource Include="Resources\Images\yoshi_icon_16px.png" />
 		<EmbeddedResource Include="Resources\Images\yoshi_icon_bg_24px.png" />
 		<EmbeddedResource Include="Resources\Images\yoshi_icon_bg_32px.png" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Resource Include="Resources\Images\yoshi_blocked_status.png" />
 	</ItemGroup>
 
 	<!-- Settings -->

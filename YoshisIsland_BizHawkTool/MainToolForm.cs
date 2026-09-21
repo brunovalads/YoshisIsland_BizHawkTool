@@ -141,6 +141,7 @@ namespace YoshisIsland_BizHawkTool
                 {
                     ClientManager.SetGaps();
                     ClientManager.UpdateScreenInfos();
+                    Yoshi.Instance.Update();
                     GuiManager.DrawEverything();
                 }
             }
