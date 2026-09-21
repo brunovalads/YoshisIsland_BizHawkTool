@@ -84,6 +84,30 @@ namespace YoshisIsland_BizHawkTool
             return _memoryAPI.HashRegion(0x0, (int)_memoryDomainSizeMap[memoryDomain], _memoryDomainNameMap[memoryDomain]);
         }
 
+        internal static uint ReadU(MemoryAddress address, long offset = 0)
+        {
+            return address.Size switch
+            {
+                1 => _memoryAPI.ReadU8(address.Address + offset, _memoryDomainNameMap[address.Domain]),
+                2 => _memoryAPI.ReadU16(address.Address + offset, _memoryDomainNameMap[address.Domain]),
+                3 => _memoryAPI.ReadU24(address.Address + offset, _memoryDomainNameMap[address.Domain]),
+                4 => _memoryAPI.ReadU32(address.Address + offset, _memoryDomainNameMap[address.Domain]),
+                _ => throw new ArgumentOutOfRangeException($"Address size {address.Size} not expected!"),
+            };
+        }
+
+        internal static int ReadS(MemoryAddress address, long offset = 0)
+        {
+            return address.Size switch
+            {
+                1 => _memoryAPI.ReadS8(address.Address + offset, _memoryDomainNameMap[address.Domain]),
+                2 => _memoryAPI.ReadS16(address.Address + offset, _memoryDomainNameMap[address.Domain]),
+                3 => _memoryAPI.ReadS24(address.Address + offset, _memoryDomainNameMap[address.Domain]),
+                4 => _memoryAPI.ReadS32(address.Address + offset, _memoryDomainNameMap[address.Domain]),
+                _ => throw new ArgumentOutOfRangeException($"Address size {address.Size} not expected!"),
+            };
+        }
+
         internal static uint ReadByte(int address, MemoryDomain memoryDomain)
         {
             return _memoryAPI.ReadByte(address, _memoryDomainNameMap[memoryDomain]);
