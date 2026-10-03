@@ -157,12 +157,8 @@ namespace YoshisIsland_BizHawkTool
             guiApi.Text(table_x + "Can jump: ".Length * delta_x, table_y + (i++ * delta_y), _canJumpText,
                 CanJump ? Color.FromArgb(0x00, 0xFF, 0x00) : Color.FromArgb(0xFF, 0x00, 0x00));
 
-            if (ToolOptions.Instance.DisplayBlockedStatus)
-            {
                 DrawBlockedStatus(guiApi, table_x, table_y + i * delta_y + 2);
-                i += 2;
-            }
-            i++;
+            i += ToolOptions.Instance.DisplayBlockedStatus ? 3 : 1 ;
 
             Color tongueColor = Color.FromArgb(unchecked((int)0xffD5293D)); // TODO: Move to the ColorManager or whatever that end up being
 
@@ -175,6 +171,9 @@ namespace YoshisIsland_BizHawkTool
 
         private void DrawBlockedStatus(IGuiApi guiApi, int blockedStatusX, int blockedStatusY)
         {
+            if (!ToolOptions.Instance.DisplayBlockedStatus)
+                return;
+
             guiApi.Text(blockedStatusX, blockedStatusY, "Blocked:");
 
             blockedStatusX += "Blocked:".Length * GuiManager.BIZHAWK_FONT_WIDTH;
